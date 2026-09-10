@@ -63,14 +63,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.smarttoolfactory.tutorial1_1basics.model.SuggestionModel
 import com.smarttoolfactory.tutorial1_1basics.model.TutorialSectionModel
+import com.smarttoolfactory.tutorial1_1basics.model.TutorialCategory
+import androidx.compose.ui.platform.testTag
 import com.smarttoolfactory.tutorial1_1basics.ui.components.CancelableChip
 import com.smarttoolfactory.tutorial1_1basics.ui.components.JumpToTopButton
 import com.smarttoolfactory.tutorial1_1basics.ui.components.StaggeredGrid
 import com.smarttoolfactory.tutorial1_1basics.ui.components.TutorialSectionCard
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
-internal val tabList = listOf("Components", "Layout", "State", "Gesture", "Graphics", "Theming")
 
 /**
  * This is Home Screen that contains Search bar, Tabs, and tutorial pages in Pager
@@ -95,7 +95,7 @@ fun HomeScreen(
 
         val state =
             rememberSearchState(
-                initialResults = viewModel.tutorialList,
+                initialResults = viewModel.categories,
                 suggestions = suggestionList,
                 timeoutMillis = 600,
             ) { query: TextFieldValue ->
@@ -215,7 +215,7 @@ private fun SuggestionGridLayout(
 @Composable
 private fun HomeContent(
     modifier: Modifier,
-    tutorialList: List<List<TutorialSectionModel>>,
+    categories: List<TutorialCategory>,
     navigateToTutorial: (String) -> Unit
 ) {
 
@@ -228,7 +228,7 @@ private fun HomeContent(
         initialPageOffsetFraction = 0f
     ) {
         // provide pageCount
-        tabList.size
+        categories.size
     }
     val coroutineScope = rememberCoroutineScope()
 
@@ -242,9 +242,10 @@ private fun HomeContent(
 
     ) {
         // Add tabs for all of our pages
-        tabList.forEachIndexed { index, title ->
+        categories.forEachIndexed { index, category ->
             Tab(
-                text = { Text(title) },
+                modifier = Modifier.testTag("category-${category.title}"),
+                text = { Text(category.title) },
                 selected = pagerState.currentPage == index,
                 onClick = {
                     coroutineScope.launch {
@@ -274,7 +275,7 @@ private fun HomeContent(
                             val diff = firstTouchX - it.position.x
                             val posX = it.position.x
 
-                            val valid = pagerState.currentPage == tabList.lastIndex &&
+                            val valid = pagerState.currentPage == categories.lastIndex &&
                                     pagerState.settledPage == pagerState.currentPage &&
                                     (diff > size.width * .2f ||
                                             (it.position.x > 0 && it.position.x < size.width * .2f)) &&
@@ -309,14 +310,11 @@ private fun HomeContent(
         pageSize = PageSize.Fill,
         state = pagerState
     ) { page: Int ->
-        when (page) {
-            0 -> TutorialListContent(modifier, tutorialList[0], navigateToTutorial)
-            1 -> TutorialListContent(modifier, tutorialList[1], navigateToTutorial)
-            2 -> TutorialListContent(modifier, tutorialList[2], navigateToTutorial)
-            3 -> TutorialListContent(modifier, tutorialList[3], navigateToTutorial)
-            4 -> TutorialListContent(modifier, tutorialList[4], navigateToTutorial)
-            else -> ComingSoonScreen()
-        }
+        TutorialListContent(
+            modifier.testTag("tutorials-${categories[page].title}"),
+            categories[page].tutorials,
+            navigateToTutorial
+        )
     }
 }
 

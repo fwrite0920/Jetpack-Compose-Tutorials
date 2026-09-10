@@ -30,22 +30,8 @@ fun TutorialNavGraph(
 
     val mainViewModel: HomeViewModel = viewModel()
 
-    if (mainViewModel.tutorialList.isEmpty()) {
-
-        val componentTutorialList: List<TutorialSectionModel> = createComponentTutorialList {
-            navController.navigateUp()
-        }
-        val layoutTutorialList = createLayoutTutorialList()
-        val stateTutorialList = createStateTutorialList()
-        val gestureTutorialList = createGestureTutorialList()
-        val graphicsTutorialList = createGraphicsTutorialList()
-
-        mainViewModel.tutorialList.add(componentTutorialList)
-        mainViewModel.tutorialList.add(layoutTutorialList)
-        mainViewModel.tutorialList.add(stateTutorialList)
-        mainViewModel.tutorialList.add(gestureTutorialList)
-        mainViewModel.tutorialList.add(graphicsTutorialList)
-    }
+    // Refresh resource-backed titles and callbacks after configuration changes.
+    mainViewModel.categories = createTutorialCategories { navController.navigateUp() }
 
     // Create Navigation for each Composable Page
     NavHost(
@@ -66,8 +52,8 @@ fun TutorialNavGraph(
 
         // Set navigation route as title of tutorial card
         // and invoke @Composable inside lambda of this card.
-        mainViewModel.tutorialList.forEach { list ->
-            list.forEach { model ->
+        mainViewModel.categories.forEach { category ->
+            category.tutorials.forEach { model ->
                 composable(route = model.title) { navBackEntryStack ->
                     // This column is used for setting navigation padding since
                     // NavHost only has statusBarsPadding to let main screen list have

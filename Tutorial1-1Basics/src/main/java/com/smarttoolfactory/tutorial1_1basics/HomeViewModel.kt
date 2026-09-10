@@ -4,20 +4,21 @@ package com.smarttoolfactory.tutorial1_1basics
 import androidx.lifecycle.ViewModel
 import com.smarttoolfactory.tutorial1_1basics.model.SuggestionModel
 import com.smarttoolfactory.tutorial1_1basics.model.TutorialSectionModel
+import com.smarttoolfactory.tutorial1_1basics.model.TutorialCategory
 
 class HomeViewModel : ViewModel() {
 
 
-    val tutorialList = mutableListOf<List<TutorialSectionModel>>()
+    internal var categories: List<TutorialCategory> = emptyList()
 
 
     fun getTutorials(query: String): List<TutorialSectionModel> {
 
         val filteredList = linkedSetOf<TutorialSectionModel>()
 
-        tutorialList.forEach { list: List<TutorialSectionModel> ->
+        categories.forEach { category ->
 
-            list.forEach { tutorialSectionModel ->
+            category.tutorials.forEach { tutorialSectionModel ->
 
                 if (tutorialSectionModel.title.contains(query, ignoreCase = true)) {
                     filteredList.add(tutorialSectionModel)
@@ -43,6 +44,9 @@ class HomeViewModel : ViewModel() {
 
 
 val suggestionList = listOf(
+    SuggestionModel("Material 3"),
+    SuggestionModel("Theming"),
+    SuggestionModel("Animation"),
     SuggestionModel("Modifier"),
     SuggestionModel("Row"),
     SuggestionModel("Column"),

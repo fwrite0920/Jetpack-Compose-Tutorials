@@ -1,0 +1,170 @@
+package com.smarttoolfactory.tutorial1_1basics.chapter7_theming
+
+import com.smarttoolfactory.tutorial1_1basics.R
+import com.smarttoolfactory.tutorial1_1basics.ui.components.TutorialPage
+import com.smarttoolfactory.tutorial1_1basics.ui.components.TutorialHeader
+import com.smarttoolfactory.tutorial1_1basics.ui.components.TutorialText2
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Card
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.Icon
+import androidx.compose.material.LocalContentAlpha
+import androidx.compose.material.LocalContentColor
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ProvidableCompositionLocal
+import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+
+@Composable
+internal fun Tutorial7_6Screen() {
+    TutorialPage(R.string.tutorial7_6_title,
+        "**CompositionLocal** provides values to a subtree.",
+        "Explore each example below and compare the values inherited from the nearest provider.") {
+        TutorialHeader("Content alpha")
+        TutorialText2("Nested LocalContentAlpha providers override the inherited alpha. Sibling content keeps the outer value.")
+        CompositionLocalExample()
+        TutorialHeader("Content color")
+        TutorialText2("Surface supplies a content color. Nested providers change only their own subtree.")
+        CompositionLocalExample2()
+        TutorialHeader("Icon locals")
+        TutorialText2("Compare the default tint, an explicit tint, Modifier.alpha and inherited content locals.")
+        CompositionLocalIconDemo()
+    }
+}
+
+data class Elevations(val card: Dp = 0.dp, val default: Dp = 0.dp)
+
+// Define a CompositionLocal global object with a default
+// This instance can be accessed by all composables in the app
+val LocalElevations: ProvidableCompositionLocal<Elevations> = compositionLocalOf { Elevations() }
+
+@Preview
+@Composable
+internal fun CompositionLocalIconDemo() {
+
+    Column(
+        Modifier
+            .padding(10.dp)
+    ) {
+
+        // Default icon
+        Icon(
+            imageVector = Icons.Default.Favorite,
+            contentDescription = null
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Icon(
+            imageVector = Icons.Default.Favorite,
+            contentDescription = null,
+            tint = Color.Green
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Icon(
+            modifier = Modifier.alpha(.3f),
+            imageVector = Icons.Default.Favorite,
+            tint = Color.Green,
+            contentDescription = null
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+
+        // Icon uses tint: Color = LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
+        // changing it also changes tint
+        CompositionLocalProvider(LocalContentColor provides Color.Green) {
+            Icon(
+                imageVector = Icons.Default.Favorite,
+                contentDescription = null
+            )
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+
+        CompositionLocalProvider(LocalContentAlpha provides .3f) {
+            CompositionLocalProvider(LocalContentColor provides Color.Green) {
+                Icon(
+                    imageVector = Icons.Default.Favorite,
+                    contentDescription = null
+                )
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun SomeComposable() {
+    // Access the globally defined LocalElevations variable to get the
+    // current Elevations in this part of the Composition
+    Card(
+        elevation = LocalElevations.current.card,
+        backgroundColor = Color.White
+    ) {
+        Text(text = "Hello World", fontSize = 20.sp)
+    }
+}
+
+@Preview
+@Composable
+internal fun CompositionLocalExample() {
+    MaterialTheme { // MaterialTheme sets ContentAlpha.high as default
+        Column(
+            Modifier
+                    .background(MaterialTheme.colors.background)
+        ) {
+            Text("Uses MaterialTheme's provided alpha")
+            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                Text("Medium value provided for LocalContentAlpha")
+                Text("This Text also uses the medium value")
+                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
+                    DescendantExample()
+                }
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+internal fun CompositionLocalExample2() {
+    MaterialTheme {
+        // Surface provides contentColorFor(MaterialTheme.colorScheme.surface) by default
+        // This is to automatically make text and other content contrast to the background
+        // correctly.
+        Surface {
+            Column {
+                Text("Uses Surface's provided content color")
+                CompositionLocalProvider(LocalContentColor provides MaterialTheme.colors.primary) {
+                    Text("Primary color provided by LocalContentColor")
+                    Text("This Text also uses primary as textColor")
+                    CompositionLocalProvider(LocalContentColor provides MaterialTheme.colors.error) {
+                        DescendantExample()
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@Composable
+private fun DescendantExample() {
+    // CompositionLocalProviders also work across composable functions
+    Text("This text inherits the nearest provider")
+}

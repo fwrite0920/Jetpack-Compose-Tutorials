@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.smarttoolfactory.tutorial2_1unit_testing"
-    compileSdk = 36
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.smarttoolfactory.tutorial2_1unit_testing"
@@ -56,12 +56,6 @@ android {
     }
 }
 
-composeCompiler {
-    // Configure compose compiler options if required
-    enableStrongSkippingMode = true
-}
-
-
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -78,14 +72,14 @@ dependencies {
 
     // AndroidX Test - JVM testing
     testImplementation(libs.androidx.core.testing)
-    //noinspection UseTomlInstead
-    testImplementation("androidx.test:core-ktx:1.6.1")
+    testImplementation(libs.androidx.test.core.ktx)
     testImplementation(libs.androidx.test.ext.junit)
 
-    // JUnit 5
+    // JUnit Jupiter and JUnit 4 compatibility
     testImplementation(libs.junit.vintage.engine)
     testImplementation(libs.junit.jupiter.api)
-    testImplementation(libs.junit.jupiter.engine)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testRuntimeOnly(libs.junit.platform.launcher)
 
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.kotlin.test)

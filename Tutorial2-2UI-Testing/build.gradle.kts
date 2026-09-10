@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.smarttoolfactory.tutorial2_2ui_testing"
-    compileSdk = 35
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.smarttoolfactory.tutorial2_2ui_testing"
@@ -51,12 +51,6 @@ android {
     }
 }
 
-composeCompiler {
-    // Configure compose compiler options if required
-    enableStrongSkippingMode = true
-}
-
-
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -71,6 +65,7 @@ dependencies {
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.material.icons.core)
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
