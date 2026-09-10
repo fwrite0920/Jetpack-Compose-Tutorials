@@ -91,6 +91,7 @@ import com.smarttoolfactory.tutorial1_1basics.ui.components.AnimationTutorialPag
 internal fun Tutorial9_10Screen() {
     AnimationTutorialPage(
         title = R.string.tutorial9_10_title,
+        fitDemoContent = true,
         introduction = "**Canvas** and animation state turn content into moving particles.",
         examples = listOf(
             AnimationExample("ShakeTest", "Shake Animation",
@@ -115,7 +116,7 @@ fun ShakeTest() {
     val coroutineScope = rememberCoroutineScope()
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(32.dp)
+        modifier = Modifier.fillMaxWidth().padding(8.dp)
     ) {
 
         Image(
@@ -240,8 +241,7 @@ fun SingleParticleTrajectorySample() {
     }
 
     Column(
-        modifier = Modifier.fillMaxSize()
-            .verticalScroll(rememberScrollState())
+        modifier = Modifier.fillMaxWidth()
             .padding(vertical = 16.dp, horizontal = 8.dp),
     ) {
 
@@ -326,7 +326,6 @@ fun ParticleAnimationSample() {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.DarkGray)
-            .verticalScroll(rememberScrollState())
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally

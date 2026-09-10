@@ -299,6 +299,30 @@ class TutorialSectionsTest {
         rule.onNodeWithTag("time-result").assertTextContains("11:45", substring = true)
     }
 
+    @Test fun animationControlsHaveBreathingRoomWithinSamples() {
+        rule.setContent { Tutorial9_2Screen() }
+        val reset = rule.onNodeWithTag("reset-AnimatedVisibilityTransitionSample").getUnclippedBoundsInRoot()
+        val button = rule.onNodeWithText("Update Target State").getUnclippedBoundsInRoot()
+        val state = rule.onNode(hasText("State currentState: false\ntargetState: false\nisIdle:  true") and
+            hasAnyAncestor(hasTestTag("animation-demo-AnimatedVisibilityTransitionSample")))
+            .getUnclippedBoundsInRoot()
+        assertEquals(16f, (button.top - reset.bottom).value, .5f)
+        assertEquals(16f, (state.top - button.bottom).value, .5f)
+        saveScreenshot("animation-balanced-spacing")
+    }
+
+    @Test fun animationSamplesHave24DpBetweenContentAndNextHeading() {
+        rule.setContent { Tutorial9_2Screen() }
+        val first = rule.onNodeWithTag("animation-demo-AnimatedVisibilityTransitionSample")
+        first.assertExists()
+        val next = rule.onNodeWithTag("animation-heading-AnimatedVisibilityCloseTest")
+        next.assertExists()
+        val contentBounds = first.getUnclippedBoundsInRoot()
+        val headingBounds = next.getUnclippedBoundsInRoot()
+        assertEquals(24f, (headingBounds.top - contentBounds.bottom).value, .5f)
+        saveScreenshot("animation-exact-24dp-spacing")
+    }
+
     @Test fun compactAnimationSamplesDoNotReserveAFullViewport() {
         var chapter by mutableIntStateOf(0)
         rule.setContent {

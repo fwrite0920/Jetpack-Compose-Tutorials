@@ -1,6 +1,7 @@
 package com.smarttoolfactory.tutorial1_1basics.ui.components
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ContentAlpha
@@ -40,7 +41,12 @@ fun TutorialHeader(text: String, modifier: Modifier = Modifier) {
  *
  */
 @Composable
-fun StyleableTutorialText(text: String, modifier: Modifier = Modifier, bullets:Boolean = true) {
+fun StyleableTutorialText(
+    text: String,
+    modifier: Modifier = Modifier,
+    bullets: Boolean = true,
+    contentPadding: PaddingValues = PaddingValues(horizontal = 8.dp, vertical = 12.dp)
+) {
 
     var results: MatchResult? = boldRegex.find(text)
     val boldIndexes = mutableListOf<Pair<Int, Int>>()
@@ -87,7 +93,7 @@ fun StyleableTutorialText(text: String, modifier: Modifier = Modifier, bullets:B
     Text(
         modifier = modifier
             .fillMaxWidth()
-            .padding(start = 8.dp, end = 8.dp, top = 12.dp, bottom = 12.dp),
+            .padding(contentPadding),
         fontSize = 16.sp,
         text = annotatedString
     )

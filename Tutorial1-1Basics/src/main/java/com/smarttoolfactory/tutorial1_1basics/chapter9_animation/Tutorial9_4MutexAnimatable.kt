@@ -4,6 +4,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.MutatorMutex
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -62,7 +63,8 @@ fun MutexMutatorMutexTest1() {
     }
 
     Column(
-        modifier = Modifier.fillMaxWidth().padding(24.dp)
+        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 
         Text("Animatable Mutex: ${animatableMutex.value.toInt()}", fontSize = 20.sp)
@@ -182,7 +184,8 @@ fun MutexMutatorMutexTest2() {
     }
 
     Column(
-        modifier = Modifier.fillMaxWidth().padding(24.dp)
+        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 
         Text("Value: ${animatable.value.toInt()}", fontSize = 26.sp)

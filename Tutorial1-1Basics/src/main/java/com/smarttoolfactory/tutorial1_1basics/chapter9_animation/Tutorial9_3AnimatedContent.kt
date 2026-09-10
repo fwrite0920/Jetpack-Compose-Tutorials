@@ -118,7 +118,8 @@ fun SimpleAnimatedContentSample() {
     var contentState: ContentState by remember { mutableStateOf(ContentState.Foo) }
 
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 
         AnimationTutorialButton(
@@ -153,7 +154,7 @@ enum class ContentState {
 @Composable
 @Preview
 fun AnimateIncrementDecrementSample() {
-    Column(Modifier.padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
         var count by remember { mutableStateOf(0) }
         // The `AnimatedContent` below uses an integer count as its target state. So when the
         // count changes, it will animate out the content associated with the previous count, and
@@ -190,7 +191,6 @@ fun AnimateIncrementDecrementSample() {
             // invoked under different keys and therefore treated as different entities.
             Text("$targetCount", fontSize = 20.sp)
         }
-        Spacer(Modifier.size(20.dp))
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             AnimationTutorialButton(onClick = { count-- }) { Text("Minus") }
             AnimationTutorialButton(onClick = { count++ }) { Text("Plus ") }
@@ -423,7 +423,7 @@ fun SlideIntoContainerSample() {
         label = "Nested menu",
         modifier = Modifier.fillMaxWidth()
     ) { level ->
-        Column(Modifier.fillMaxWidth().background(Color(0xfffff0ea)).padding(16.dp)) {
+        Column(Modifier.fillMaxWidth().background(Color(0xfffff0ea)).padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             Text("Menu level ${level.ordinal + 1}", fontSize = 20.sp)
             AnimationTutorialButton(
                 enabled = level != NestedMenuState.Level3,

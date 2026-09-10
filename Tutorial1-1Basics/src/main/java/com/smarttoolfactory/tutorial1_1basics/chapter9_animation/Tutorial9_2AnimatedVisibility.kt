@@ -17,6 +17,7 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -83,7 +84,8 @@ fun AnimatedVisibilityTransitionSample() {
     val transition: Transition<Boolean> = rememberTransition(visibleState)
 
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         AnimationTutorialButton(
             onClick = {
@@ -132,7 +134,8 @@ fun AnimatedVisibilityCloseTest() {
     val visibleState = remember { MutableTransitionState(false) }
 
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 
         AnimationTutorialButton(
@@ -187,7 +190,7 @@ fun MutableTransitionStatePreview() {
     ) { visible ->
         if (visible) 200.dp else 100.dp
     }
-    Column {
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         AnimationTutorialButton(
             onClick = {
                 visibleState.targetState = visibleState.targetState.not()
@@ -211,7 +214,8 @@ fun MutableTransitionStatePreview() {
 @Composable
 fun PoppingInCardPreview() {
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         PoppingInCard()
     }
@@ -292,7 +296,8 @@ fun AnimateEnterExitSample() {
     }
 
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         AnimationTutorialButton(
             onClick = {

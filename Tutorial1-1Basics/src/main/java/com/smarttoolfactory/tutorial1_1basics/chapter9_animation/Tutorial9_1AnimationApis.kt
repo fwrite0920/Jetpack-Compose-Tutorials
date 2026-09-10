@@ -71,11 +71,11 @@ internal fun StateAnimationDemo() {
 @Composable
 internal fun VisibilityDecisionDemo() {
     var visible by rememberSaveable { mutableStateOf(true) }
-    Column(Modifier.fillMaxWidth().padding(8.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Column(Modifier.fillMaxWidth().padding(8.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         AnimationTutorialButton(onClick = { visible = !visible }) { Text(if (visible) "Hide content" else "Show content") }
         AnimatedVisibility(visible, enter = fadeIn() + expandVertically(), exit = fadeOut() + shrinkVertically()) {
             Card {
-                Column(Modifier.fillMaxWidth().padding(8.dp)) {
+                Column(Modifier.fillMaxWidth().padding(8.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                     Text("A composed item")
                     Text("The child slides within the parent's fade.",
                         Modifier.animateEnterExit(enter = slideInHorizontally(), exit = slideOutHorizontally()))
@@ -89,7 +89,7 @@ internal fun VisibilityDecisionDemo() {
 @Composable
 internal fun CrossfadeDemo() {
     var index by rememberSaveable { mutableIntStateOf(0) }
-    Column(Modifier.fillMaxWidth().padding(8.dp)) {
+    Column(Modifier.fillMaxWidth().padding(8.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         TutorialChoices(listOf("Overview", "Details"), index) { index = it }
         Crossfade(index, animationSpec = tween(600), label = "Crossfade") { page ->
             Card(Modifier.fillMaxWidth()) {
@@ -176,7 +176,7 @@ internal fun AnimatableInterruptionDemo() {
         }
     }
     Column(Modifier.fillMaxWidth().padding(8.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        verticalArrangement = Arrangement.spacedBy(16.dp)) {
         TutorialToggle("Run concurrently", concurrent) { concurrent = it }
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             AnimationTutorialButton(onClick = { animate(1f) }, modifier = Modifier.testTag("start-animation")) { Text("Start") }
