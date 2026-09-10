@@ -164,6 +164,11 @@ import com.smarttoolfactory.tutorial1_1basics.chapter6_graphics.Tutorial6_30Scre
 import com.smarttoolfactory.tutorial1_1basics.chapter6_graphics.Tutorial6_31Screen
 import com.smarttoolfactory.tutorial1_1basics.chapter6_graphics.Tutorial6_32Screen
 import com.smarttoolfactory.tutorial1_1basics.chapter6_graphics.Tutorial6_33Screen
+import com.smarttoolfactory.tutorial1_1basics.chapter6_graphics.Tutorial6_42Screen
+import com.smarttoolfactory.tutorial1_1basics.chapter6_graphics.Tutorial6_43Screen
+import com.smarttoolfactory.tutorial1_1basics.chapter6_graphics.Tutorial6_44Screen
+import com.smarttoolfactory.tutorial1_1basics.chapter6_graphics.Tutorial6_45Screen
+import com.smarttoolfactory.tutorial1_1basics.chapter6_graphics.Tutorial6_46Screen
 import com.smarttoolfactory.tutorial1_1basics.chapter6_graphics.Tutorial6_4Screen0
 import com.smarttoolfactory.tutorial1_1basics.chapter6_graphics.Tutorial6_4Screen1
 import com.smarttoolfactory.tutorial1_1basics.chapter6_graphics.Tutorial6_4Screen2
@@ -3244,6 +3249,41 @@ fun createGraphicsTutorialList(): List<TutorialSectionModel> {
         tutorial6_30,
         tutorial6_31,
         tutorial6_32,
-        tutorial6_33
+        tutorial6_33,
+        TutorialSectionModel(
+            title = stringResource(R.string.tutorial6_42_title),
+            description = stringResource(R.string.tutorial6_42_description),
+            action = { Tutorial6_42Screen() },
+            tags = listOf(TAG_COMPOSE, "Graphics", "Mesh Gradient", "MeshGradientPainter", "Color", "Painter"),
+            tagColor = GraphicsListColor
+        ),
+        TutorialSectionModel(
+            title = stringResource(R.string.tutorial6_43_title),
+            description = stringResource(R.string.tutorial6_43_description),
+            action = { Tutorial6_43Screen() },
+            tags = listOf(TAG_COMPOSE, "Graphics", "Mesh Gradient", "MeshGradientPainter", "Bézier", "Control Points", "Bicubic"),
+            tagColor = GraphicsListColor
+        ),
+        TutorialSectionModel(
+            title = stringResource(R.string.tutorial6_44_title),
+            description = stringResource(R.string.tutorial6_44_description),
+            action = { Tutorial6_44Screen() },
+            tags = listOf(TAG_COMPOSE, "Graphics", "Mesh Gradient", "MeshGradientPainter", TAG_ANIMATABLE, "Animation"),
+            tagColor = GraphicsListColor
+        ),
+        TutorialSectionModel(
+            title = stringResource(R.string.tutorial6_45_title),
+            description = stringResource(R.string.tutorial6_45_description),
+            action = { Tutorial6_45Screen() },
+            tags = listOf(TAG_COMPOSE, "Graphics", "Mesh Gradient", "MeshGradientPainter", "Editor", "Vertices", "Color", "Drag"),
+            tagColor = GraphicsListColor
+        ),
+        TutorialSectionModel(
+            title = stringResource(R.string.tutorial6_46_title),
+            description = stringResource(R.string.tutorial6_46_description),
+            action = { Tutorial6_46Screen() },
+            tags = listOf(TAG_COMPOSE, "Graphics", "Mesh Gradient", "MeshGradientPainter", "Editor", "Keyframes", "Animation", "Color"),
+            tagColor = GraphicsListColor
+        )
     )
 }

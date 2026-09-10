@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tutorial6_42_title">6-42 Mesh Gradient Basics</string>
+    <string name="tutorial6_42_description">Build a four-corner mesh with MeshGradientPainter, normalized positions and selectable color palettes.</string>
+    <string name="tutorial6_43_title">6-43 Mesh Gradient Control Points</string>
+    <string name="tutorial6_43_description">Move the center of a nine-vertex mesh, edit Bézier tangents and compare bilinear with bicubic colors.</string>
+    <string name="tutorial6_44_title">6-44 Animated Mesh Gradient</string>
+    <string name="tutorial6_44_description">Animate a sixteen-vertex mesh with drawing-phase state reads, movement controls, pause, resume and reset.</string>
+    <string name="tutorial6_45_title">6-45 Mesh Gradient Editor</string>
+    <string name="tutorial6_45_description">Add mesh vertices by inserting rows and columns, drag points and edit each vertex color with swatches and RGB sliders.</string>
+    <string name="tutorial6_46_title">6-46 Animated Mesh Gradient Editor</string>
+    <string name="tutorial6_46_description">Edit vertex positions and colors in two matching meshes, then animate between the start and end frames with pause and resume.</string>
+</resources>
